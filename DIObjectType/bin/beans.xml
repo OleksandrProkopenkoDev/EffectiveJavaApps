@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="mathCheat" class="com.spro.di.MathCheat"></bean>
+
+	<bean id = "student" class = "com.spro.di.Student">
+		<property name="mathCheat" ref="mathCheat"/>
+		<property name="id" value="1"/>
+	</bean>
+
+	<bean id = "anotherStudent" class = "com.spro.di.AnotherStudent">
+		<property name="cheat" ref="mathCheat"/>
+	</bean>
+
+</beans>
+
+
+
+<!--this code creates many students with different mathCheat objects
+
+
+	<bean id = "student" class = "com.spro.di.Student">
+		<property name="mathCheat">
+			<bean class ="com.spro.di.MathCheat"></bean>
+		</property>
+		<property name="id" value="1"/>
+	</bean>
+
+	<bean id = "anotherStudent" class = "com.spro.di.AnotherStudent">
+		<property name="cheat">
+			<bean class ="com.spro.di.MathCheat"></bean>
+		</property>
+	</bean>
+  -->
+

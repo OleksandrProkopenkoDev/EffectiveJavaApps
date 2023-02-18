@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="mathCheat" class="com.spro.di.MathCheat"></bean>
+	<bean id="scienceCheat" class="com.spro.di.ScienceCheat"></bean>
+	<bean id="javaCheat" class="com.spro.di.JavaCheat"></bean>
+
+	<bean id = "student" class = "com.spro.di.Student">
+		<property name="cheat" ref="javaCheat"/>
+
+	</bean>
+
+
+
+</beans>
+
+
+
