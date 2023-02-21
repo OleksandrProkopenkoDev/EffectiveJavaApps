@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="
+    	http://www.springframework.org/schema/beans
+    	https://www.springframework.org/schema/beans/spring-beans.xsd
+        
+    	http://www.springframework.org/schema/aop
+    	https://www.springframework.org/schema/aop/spring-aop.xsd">
+        
+	<bean id="bo" class="com.to.SomeBO"/>
+	
+	<bean id="ba" class="com.apps.BeforeAdvisor"/>
+	<bean id="aa" class="com.apps.AfterAdvisor"/>
+	<bean id="bh" class="com.apps.BothAdvisor"/>
+	<bean id="ea" class="com.apps.ExceptionAdvisor"/>
+	<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="bo"></property>
+		<property name="interceptorNames">
+			<list>
+				<value>bh</value><!--  we can define here ba, aa, bh or ea or some of them-->
+				<value>ea</value>
+			</list>
+		</property>
+	</bean>
+        
+ </beans>
