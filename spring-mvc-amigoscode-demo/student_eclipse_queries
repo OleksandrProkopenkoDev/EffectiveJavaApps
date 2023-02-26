@@ -1,0 +1,4 @@
+select * from student;
+
+insert into student values
+(1,21,'2008-12-02','asasa','asaas');
