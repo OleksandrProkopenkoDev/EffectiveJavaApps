@@ -2,12 +2,18 @@ package net.javaguides.springboot.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
 
 @Entity
 @Table(name="employees_crud")
@@ -19,13 +25,22 @@ public class Employee {
 	
 	@Column(name="first_name")
 	private String firstName;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="dob")
 	private Date dob; //date of birth
-	@Column(name="position")
-	private String position;
 	
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "position_id", referencedColumnName = "id")
+	private Position position;
 	
+	public Employee() {}
 	
+	public Employee(String firstName, Date dob, Position position) {
+		this.firstName = firstName;
+		this.dob = dob;
+		this.position = position;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -44,12 +59,18 @@ public class Employee {
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}
-	public String getPosition() {
+	public Position getPosition() {
 		return position;
 	}
-	public void setPosition(String position) {
+	public void setPosition(Position position) {
 		this.position = position;
 	}
+
+	@Override
+	public String toString() {
+		return "Employee [firstName=" + firstName + ", dob=" + dob + ", position=" + position.getTitle() + "]";
+	}
+
 	
 	
 	
