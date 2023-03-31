@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import net.javaguides.model.Project;
 import net.javaguides.repository.ProjectRepository;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
 @RestController
 @RequestMapping("/api/v1/")
 public class ProjectController {

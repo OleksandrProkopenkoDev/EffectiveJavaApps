@@ -14,10 +14,13 @@ class ListEmployeeComponent extends Component {
         }
 
         this.addEmployee = this.addEmployee.bind(this);
-        
+        this.editEmployee = this.editEmployee.bind(this);
     }
 
-    
+    editEmployee(id){
+        // this.props.navigate(`/update-employee/${id}`);
+        this.props.navigate('/update-employee/:id');
+    }
 
     componentDidMount(){
         EmployeeService.getEmployees().then((res)=>{
@@ -28,8 +31,13 @@ class ListEmployeeComponent extends Component {
      addEmployee(){
         // const navigate = useNavigate();
         // navigate('/add-employee');
-        // this.props.navigate.push('/add-employee');
+        // this.props.navigate('/add-employee');
+        //  this.props.navigate('/add-employee');
+       
+        
     }
+
+
 
     render() {
         return (
@@ -62,7 +70,9 @@ class ListEmployeeComponent extends Component {
                                         <td>{employee.name}</td>
                                         <td>{employee.offerDate}</td>
                                         <td>{employee.salary}</td>
-                                        
+                                        <td>
+                                            <button onClick={()=>this.editEmployee(employee.id)} className='btn btn-info'>Update</button>
+                                        </td>
                                     </tr>
                                 )
                             }
