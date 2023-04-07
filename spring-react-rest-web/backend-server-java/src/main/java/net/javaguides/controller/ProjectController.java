@@ -13,20 +13,20 @@ import org.springframework.web.bind.annotation.RestController;
 import net.javaguides.model.Project;
 import net.javaguides.repository.ProjectRepository;
 
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
+@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:3001" })
 @RestController
 @RequestMapping("/api/v1/")
 public class ProjectController {
-	
+
 	@Autowired
 	private ProjectRepository projectRepository;
-	
+
 	@GetMapping("/projects")
-	public List<Project> getAllProjects(){
+	public List<Project> getAllProjects() {
 		List<Project> projects = projectRepository.findAll();
-		/*
-		 * for (Project project : projects) { System.out.println(project); }
-		 */
+		
+		  for (Project project : projects) { System.out.println(project); }
+		 
 		return projects;
 	}
 
@@ -34,5 +34,5 @@ public class ProjectController {
 	public Project createProject(@RequestBody Project project) {
 		return projectRepository.save(project);
 	}
-	
+
 }

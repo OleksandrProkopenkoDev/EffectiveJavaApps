@@ -37,9 +37,9 @@ public class SpringReactRestWebApplication implements CommandLineRunner {
 		  projectRepo.save(project1);
 		  
 //		  Client savedClient = clientRepo.save(client);
-		 */
+		 
 		Project project1 = projectRepo.findById(3L).orElseThrow();
-		System.out.println(project1);
+		System.out.println(project1);*/
 	}
 
 }

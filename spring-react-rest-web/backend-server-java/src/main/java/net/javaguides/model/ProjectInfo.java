@@ -2,7 +2,16 @@ package net.javaguides.model;
 
 import java.util.Date;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "project_info")
@@ -23,6 +32,7 @@ public class ProjectInfo {
 	@Column(name= "end_date")
 	private Date endDate;
 	
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "proj_info_id")
 	private Project project; //what projects info is this

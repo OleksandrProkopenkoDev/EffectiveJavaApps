@@ -16,12 +16,12 @@ public class Project {
 	private Long id;
 	private String title;
 	
-	@JsonIgnore
+	
 	@OneToOne(mappedBy = "project",cascade =  CascadeType.ALL, fetch = FetchType.EAGER)
 	@PrimaryKeyJoinColumn
 	private ProjectInfo projectInfo;
 	
-	@JsonIgnore
+	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(
 			name="employees_projects",
@@ -29,7 +29,7 @@ public class Project {
 			inverseJoinColumns = @JoinColumn(name = "employee_id"))
 	private Set<Employee> employees = new HashSet<>();
 	
-	@JsonIgnore
+	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "client_id", referencedColumnName = "client_id")
 	private Client client;
