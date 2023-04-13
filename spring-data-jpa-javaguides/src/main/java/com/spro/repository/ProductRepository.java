@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.spro.entity.Product;
 
@@ -58,8 +60,69 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	List<Product> findByNameLike(String name);
 	
 	List<Product> findByPriceBetween(BigDecimal statrPrice, BigDecimal endPrice);
-	
+	 
 	List<Product> findByDateCreatedBetween(LocalDateTime startDate,LocalDateTime endDate);
 	
 	List<Product> findByNameIn(List<String> names);
+	
+	Product findFirstByName(String name);
+	
+	List<Product> findTop3ByName(String name);
+	
+	// this is findAll, sort by price and limit number of rows to 3
+	List<Product> findTop3ByOrderByPriceDesc();
+	
+//------------define JPQL query using @Query annotation------------------
+	
+	@Query("select p from Product p where p.name = ?1 or p.description  =?2")
+	List<Product> findMyProduct(String name, String description);
+	
+
+	
+//	named parameters
+	@Query("select p from Product p "
+			+ "where p.name = :name or p.description = :description")
+	List<Product> findByNameAndDescriptionJPQLParam
+						(
+						 @Param("description")  String description,
+						 @Param("name") 		String name);
+	//-------sql---------
+	@Query(value= "SELECT * FROM products", nativeQuery = true) 
+	List<Product> findMyAllProductsSQL();
+	
+	@Query(value = "SELECT * FROM products "
+			+ " where name = ?1 or description = ?2", nativeQuery = true)
+	List<Product> findByNameAndDescSQL(String name, String description);
+
+	//name parameters
+	@Query(value = "SELECT * FROM products "
+			+ " where name = :name or description = :descript", nativeQuery = true)
+	List<Product> findByNameAndDescSQLParam(
+			@Param("descript") String description,
+			@Param("name") String name);
+	
+	//------------------Named queries----------------------
+	
+	Product findBySku(@Param("sku") String sku);
+	
+	List<Product> findByPrice(BigDecimal price);
+	
+	List<Product> findAllOrderByNameDesc();
+	
+	List<Product> findAllOrderBySkuDesc();
+	
+	List<Product> findAllOrderByPriceAsc();
+	
+//----------sql query---------------------
+	
+	@Query(nativeQuery = true)
+	List<Product> findByCreationDate(LocalDateTime date);
+	
+//	@Query(nativeQuery = true)
+	List<Product> findAllOrderByAsc();
+	
+	
+//	-------------Paging and sorting-------------------
+	
+	
 }

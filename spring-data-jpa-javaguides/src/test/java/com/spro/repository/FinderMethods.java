@@ -2,7 +2,6 @@ package com.spro.repository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -10,138 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.spro.entity.Product;
-
 @SpringBootTest
-class ProductRepositoryTest {
+public class FinderMethods {
 
 	@Autowired
 	private ProductRepository productRepo;
-
-//	@Test
-	void saveMethod() {
-//		create product object
-		Product product = new Product();
-		product.setName("Green tea");
-		product.setDescription("This is awesome milk ulun");
-		product.setPrice(new BigDecimal(50.59));
-		product.setSku("100ABC");
-		product.setActive(true);
-		product.setImageUrl("http://biginternet.com/image/sd3w5v.png");
-//		save product
-		try {
-			Product savedObject = productRepo.save(product);
-//		display
-			System.out.println(savedObject);
-
-		} catch (Exception e) {
-			System.out.println("this product already exists");
-		}
-
-	}
-
-//	@Test
-	void updateUsingSaveMethod() {
-//		find or retrieve an entity by id
-		Long id = 9L;
-		Product product = productRepo.findById(id).get();
-//		update entity info
-		product.setName("Amazing green tea");
-		product.setDescription("This tea is grown up in chinese mountains. Big fields under the warm sun... ");
-
-//		save updated entity
-		productRepo.save(product);
-
-	}
-
-//	@Test
-	void findByIdMethod() {
-		Long id = 9L;
-		Product product = productRepo.findById(id).get();
-		System.out.println(product);
-	}
-
-//	@Test
-	void saveAllMethod() {
-//		create product object
-		Product product = new Product();
-		product.setName("Black tea");
-		product.setDescription("Jungle mix");
-		product.setPrice(new BigDecimal(52.89));
-		product.setSku("121ABC");
-		product.setActive(true);
-		product.setImageUrl("http://biginternet.com/image/td3g5v.png");
-//		create product object
-		Product product2 = new Product();
-		product2.setName("Black tea");
-		product2.setDescription("With lemon");
-		product2.setPrice(new BigDecimal(44.99));
-		product2.setSku("122ABC");
-		product2.setActive(true);
-		product2.setImageUrl("http://biginternet.com/image/sd91w5v.png");
-//		create product object
-		Product product3 = new Product();
-		product3.setName("Black tea");
-		product3.setDescription("Earl grey");
-		product3.setPrice(new BigDecimal(53.69));
-		product3.setSku("123ABC");
-		product3.setActive(true);
-		product3.setImageUrl("http://biginternet.com/image/s23w7v.png");
-
-		productRepo.saveAll(List.of(product, product2, product3));
-
-	}
-
-//	@Test
-	void findAllMethod() {
-		List<Product> products = productRepo.findAll();
-		products.forEach((p) -> {
-			System.out.println(p);
-		});
-
-	}
-
-//	@Test
-	void deleteByIdMethod() {
-		Long id = 3L;
-		productRepo.deleteById(id);
-	}
-
-//	@Test
-	void deleteEntityMethod() {
-//		find entity by id
-		Long id = 1L;
-		Product product = productRepo.findById(id).get();
-		System.out.println(product);
-		// product.setId(null);
-//		delete entity
-		productRepo.delete(product); // this also works with 'id' only, it delete by id underhood
-
-	}
-
-//	@Test
-	void deleteAllMethod() {
-		// productRepo.deleteAll();//hibernate select all from table, then delete by id
-		// every row
-
-		Product prod = productRepo.findById(18L).get();
-		Product prod2 = productRepo.findById(17L).get();
-		Product prod3 = productRepo.findById(16L).get();
-
-		productRepo.deleteAll(List.of(prod, prod2));
-	}
-
-//	@Test
-	void countMethod() {
-		long count = productRepo.count();
-		System.out.println("Number of rows in products table: " + count);
-	}
-
-//	@Test
-	void existByIdMethod() {
-		Long id = 300L;
-		boolean exist = productRepo.existsById(id);
-		System.out.println("Product with id=" + id + " exists? " + exist);
-	}
 
 	// ------------------------query methods-------------------------
 
@@ -221,7 +93,7 @@ class ProductRepositoryTest {
 		results.forEach(item->{System.out.println(item);});
 	}
 	
-	@Test
+//	@Test
 	void findByNameInMethod() {
 		List<String> names = List.of("Green tea","Car", "Sugar");
 		List<Product> results = productRepo.
@@ -229,4 +101,30 @@ class ProductRepositoryTest {
 		System.out.println("Products with name in "+ names+" : ");
 		results.forEach(item->{System.out.println(item);});
 	}
+	
+//	@Test
+	void findFirstByNameMethod() {
+		String name = "Green tea";
+		Product result = productRepo.findFirstByName(name);
+		System.out.println("Find first by name '"+name+"' : "+result);
+	}
+	
+//	@Test
+	void findTop3ByNameMethod() {
+		String name = "Green tea";
+		List<Product> results = productRepo.
+				findTop3ByName(name);
+		System.out.println("Top 3 products by name '"+ name+"' : ");
+		results.forEach(item->{System.out.println(item);});
+	}
+	
+//	@Test
+	void findTop3ByOrderByPriceDescMethod() {
+		List<Product> results = productRepo.
+				findTop3ByOrderByPriceDesc();
+		System.out.println("Top 3 products by price : ");
+		results.forEach(item->{System.out.println(item);});
+	}
+	
+
 }
