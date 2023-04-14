@@ -28,23 +28,25 @@ public class Question {
 	private String question;
 	private String correct_answer;
 
-	@OneToMany(
-			cascade = CascadeType.ALL, 
-			fetch = FetchType.EAGER)
-	@JoinColumn(name = "question_id")
-	private List<IncorrectAnswer> incorrectAnswers;
+	private String[] incorrect_answers;
+	
+//	@OneToMany(
+//			cascade = CascadeType.ALL, 
+//			fetch = FetchType.EAGER)
+//	@JoinColumn(name = "question_id")
+//	private List<IncorrectAnswer> incorrect_answers;
 
 	public Question() {
 	}
 
 	public Question(String category, String type, String difficulty, String question, String correctAnswer,
-			List<IncorrectAnswer> incorrectAnswers) {
+			String[] incorrect_answers) {
 		this.category = category;
 		this.type = type;
 		this.difficulty = difficulty;
 		this.question = question;
 		this.correct_answer = correctAnswer;
-		this.incorrectAnswers = incorrectAnswers;
+		this.incorrect_answers = incorrect_answers;
 	}
 
 	public Long getId() {
@@ -95,19 +97,38 @@ public class Question {
 		this.correct_answer = correctAnswer;
 	}
 
-	public List<IncorrectAnswer> getIncorrectAnswers() {
-		return incorrectAnswers;
+	public String getCorrect_answer() {
+		return correct_answer;
 	}
 
-	public void setIncorrectAnswers(List<IncorrectAnswer> incorrectAnswers) {
-		this.incorrectAnswers = incorrectAnswers;
+	public void setCorrect_answer(String correct_answer) {
+		this.correct_answer = correct_answer;
+	}
+
+	public String[] getIncorrect_answers() {
+		return incorrect_answers;
+	}
+
+	public void setIncorrect_answers(String[] incorrect_answers) {
+		this.incorrect_answers = incorrect_answers;
 	}
 
 	@Override
 	public String toString() {
 		return "Question [id=" + id + ", category=" + category + ", type=" + type + ", difficulty=" + difficulty
-				+ ", question=" + question + ", correct_answer=" + correct_answer + ", incorrectAnswers="
-				+ incorrectAnswers + "]";
+				+ ", question=" + question + ", correct_answer=" + correct_answer + ", incorrect_answers="
+				+ incorrectAnswersToString() + "]";
 	}
 
+	
+	private String incorrectAnswersToString() {
+		StringBuilder result = new StringBuilder("[");
+		
+		for (int i = 0; i < incorrect_answers.length; i++) {
+			result.append(incorrect_answers[i]).append(", ");
+		}
+		
+		result.append("]");
+		return result.toString();
+	}
 }
