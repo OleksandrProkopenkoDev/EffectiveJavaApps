@@ -1,0 +1,37 @@
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    
+spring:
+  datasource:
+    password: postroot
+    url: jdbc:postgresql://localhost:5432/registration
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        formt_sql: true
+    show-sql: true
+    
+  mail:
+    host: localhost
+    port: 1025
+    username: hello
+    password: hello
+    
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 3000
+          timeout: 2000
+          writetimeout: 3000  
+            
