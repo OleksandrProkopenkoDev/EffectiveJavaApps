@@ -38,13 +38,14 @@ public class AppUserService implements UserDetailsService {
 	public String singUpUser(AppUser appUser) {
 		boolean userExists = appUserRepository.findByEmail(appUser.getEmail()).isPresent();
 		if(userExists) {
+//			TODO resend email with confirmation link
 			throw new IllegalStateException("email already taken");
 		}
 		String encodedPassword = 
 				bCryptPasswordEncoder.encode(appUser.getPassword()); 
 		appUser.setPassword(encodedPassword);
 		appUserRepository.save(appUser);
-		//TODO send confirmation token
+		// send confirmation token
 		String token = UUID.randomUUID().toString();
 		ConfirmationToken confirmationToken = new ConfirmationToken(
 				token,
@@ -54,7 +55,7 @@ public class AppUserService implements UserDetailsService {
 				);
 		confirmationTokenService.saveConfirmationToken(confirmationToken);
 		
-		//TODO send email
+		
 		
 		return token;
 	}
