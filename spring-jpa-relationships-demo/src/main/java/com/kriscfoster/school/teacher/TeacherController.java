@@ -19,8 +19,8 @@ public class TeacherController {
   @Autowired private TeacherRepository teacherRepository;
 
   @GetMapping
-  public List<TeacherDto> getTeachers() {
-    return teacherRepository.findAll().stream().map(this::toTeacherDto).toList();
+  public List<Teacher> getTeachers() {
+    return teacherRepository.findAll();
   }
 
   @PostMapping
