@@ -42,7 +42,6 @@ public class Subject {
 
 	private String name;
 
-
 	public void enrollStudent(Student student) {
 		enrolledStudents.add(student);
 	}
